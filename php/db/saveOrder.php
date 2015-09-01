@@ -6,7 +6,7 @@
 		
 			$orderID = $_POST['id'];
 			$jProducts = $_POST['aScan'];
-			$movID = $_GET['movID'];
+			$movID = $_POST['movID'];
 			$mov = 'Pedido Mayoreo';
 
 			$aProducts = json_decode($jProducts);

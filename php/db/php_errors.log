@@ -51,3 +51,6 @@
 [17-Jun-2015 17:47:07 America/Mexico_City] 14
 [17-Jun-2015 17:48:07 America/Mexico_City] 1
 [17-Jun-2015 17:57:43 America/Mexico_City] 14
+[01-Sep-2015 09:25:06 America/Mexico_City] 1
+[01-Sep-2015 09:25:59 America/Mexico_City] PHP Notice:  Undefined index: movID in C:\inetpub\wwwroot\HolaMundoWs\LeeWs\Bellisima\pickingLiverpool\php\db\saveOrder.php on line 9
+[01-Sep-2015 09:28:56 America/Mexico_City] 1
