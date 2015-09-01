@@ -10,6 +10,7 @@ var	scanQuantity = null;
 var	totalQuantity = null;
 var dvOffice = null;
 var dvArticleNumber = null;
+var orderMovId = null;
 asl.events.subscribe(asl.events.types.loaded, initFields);
 asl.events.subscribe(asl.events.types.loaded, insertOrder);
 asl.events.subscribe(asl.events.types.loaded, onLoad);
@@ -26,7 +27,7 @@ asl.options([
 	},*/
 	{
 		title: 'Terminar Orden',
-		callback: function(){
+			{
 			terminateOrder();
 		}
 	},
@@ -129,6 +130,7 @@ function requestOrder(movID){
 						dvOffice.innerHTML = order.office;
 
 						asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','Orden cargada.',['OK'],[null]);
+						orderMovId = movID;
 						wlan.disableAdapter();
 						wifiEnabled = false;
 						showProductInfo(0);
@@ -146,7 +148,7 @@ function requestOrder(movID){
 				asl.notify(asl.notifications.application,asl.priority.normal,'Error:','No se pudo conectar con el servidor.',['OK'],[insertOrder]);
 				//insertOrder();
 			} else {
-				if ( obj.data) {
+				if (obj.data) {
 					asl.notify(asl.notifications.application,asl.priority.normal,'Error en el servidor:','('+obj.data.status+') '+obj.data.statusText,['OK'],[insertOrder]);
 				} else {
 					insertOrder();
@@ -270,7 +272,7 @@ function requestSaveScanQuantity(){
 	var jScanQuantity = JSON.stringify(aScanQuantity);
 	
 	var url = oCfg.phpPath + 'saveOrder.php';
-	var data = 'id=' + order.id + '&aScan=' + jScanQuantity;
+	var data = 'id=' + order.id + '&aScan=' + jScanQuantity + '&movID=' + orderMovId;
 
 
 	var handle = function(obj){

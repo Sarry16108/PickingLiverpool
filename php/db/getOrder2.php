@@ -16,7 +16,7 @@
 			// En la condición solo se toma en cuenta el Mov y MovID. Se omitió la empresa porque actualmente el MovID es diferente en cada empresa.
 			$handle = $link->prepare('SELECT id, movID, almacenDestino office, estatus status FROM '.$table_sale.' WHERE Mov = :mov AND MovID = :movID');
 				
-			//$mov = 'Orden Surtid Mayoreo';
+			$mov = 'Pedido Mayoreo';
 			$handle->bindParam(':mov', $mov);
 			$handle->bindParam(':movID', $movID);
 		    $handle->execute();
