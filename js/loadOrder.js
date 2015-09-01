@@ -27,7 +27,7 @@ asl.options([
 	},*/
 	{
 		title: 'Terminar Orden',
-			{
+		callback: function(){
 			terminateOrder();
 		}
 	},

@@ -35,9 +35,10 @@
 			    $handle->execute();
 			}
 
-			$handle = $link->prepare('UPDATE '.$table_sale.' SET Logico1 = :logicValue WHERE MovID = :movID');
+			$handle = $link->prepare('UPDATE '.$table_sale.' SET Logico1 = :logicValue WHERE MovID = :movID AND Mov = :mov');
 			$handle->bindValue(':logicValue', '1');
 			$handle->bindParam(':movID', $movID);
+			$handle->bindParam(':mov', $mov);
 			$handle->execute();
 			//$handle = $link->prepare('UPDATE '.$table_sale.' SET Logico1 = :logicValue WHERE ID = :orderID AND Renglon = :row');
 
