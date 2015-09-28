@@ -14,11 +14,12 @@
 		                        ));
 
 			// En la condición solo se toma en cuenta el Mov y MovID. Se omitió la empresa porque actualmente el MovID es diferente en cada empresa.
-			$handle = $link->prepare('SELECT id, movID, almacenDestino office, estatus status FROM '.$table_sale.' WHERE Mov = :mov AND MovID = :movID');
+			$handle = $link->prepare('SELECT id, movID, almacenDestino office, estatus status FROM '.$table_sale.' WHERE Mov = :mov AND MovID = :movID AND Logico1 = 0');
 				
 			$mov = 'Pedido Mayoreo';
 			$handle->bindParam(':mov', $mov);
 			$handle->bindParam(':movID', $movID);
+			//$handle->bindParam(':logicValue', '0');
 		    $handle->execute();
 
 		    if($order = $handle->fetchObject()){
@@ -39,7 +40,7 @@
 	function getOrderDetail($link, $order){
 		include('config.php');
 
-		$handle = $link->prepare('SELECT invD.articulo code, invD.cantidad requestQuantity, invD.renglon row, invExistence.inventario inventoryQuantity FROM '.$table_sale_detail.' invD JOIN '.$table_article.' art ON invD.articulo = art.articulo JOIN '.$table_inventory_existence.' invExistence ON invD.Articulo=invExistence.Articulo AND invExistence.Almacen=invD.Almacen WHERE invD.id = :id AND invExistence.inventario > 0 ORDER BY art.fabricante, invD.articulo');
+		$handle = $link->prepare('SELECT invD.articulo code, invD.cantidad requestQuantity, invD.renglon row, invExistence.inventario inventoryQuantity FROM '.$table_sale_detail.' invD JOIN '.$table_article.' art ON invD.articulo = art.articulo JOIN '.$table_inventory_existence.' invExistence ON invD.Articulo=invExistence.Articulo AND invExistence.Almacen=invD.Almacen WHERE invD.id = :id AND invExistence.inventario > 0 ORDER BY invD.renglon');
 
 		$handle->bindParam(':id', $order->id);
 

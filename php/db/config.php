@@ -17,9 +17,10 @@
 	$table_Usuario = 'Usuario';
     $table_barcode = 'CB';
 	$table_article = 'Art';
+    //Vistas
 	$table_inventory_existence = 'ArtSubExistenciaInv';		
     $view_productAvail = 'ArtDisponible';
-	
+	//
     $table_sale = 'Venta';
     $table_sale_detail = 'VentaD';
 	

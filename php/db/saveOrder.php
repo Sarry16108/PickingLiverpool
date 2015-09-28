@@ -17,10 +17,10 @@
 		                        array(
 		                            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 		                        ));
-
+ 
 			//$handle = $link->prepare('UPDATE '.$table_sale_detail.' SET cantidadA = :scanQuantity WHERE ID = :orderID AND Renglon = :row');
 			/*$handle = $link->prepare('UPDATE '.$table_sale.' SET Logico1 = :logicValue WHERE MovID = :movID');
-			$handle->bindValue(':logicValue', '1');
+			
 			$handle->bindParam(':movID', $movID);
 			$handle->execute();*/
 

@@ -142,7 +142,7 @@ function requestOrder(movID){
 				}
 				else{
 					showLoadingScreen(true);
-					asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','No existe una orden con ese código.',['OK'],[insertOrder]);
+					asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','No existe una orden disponible con ese código.',['OK'],[insertOrder]);
 				}
 			} else if (obj.ajaxAnswer == AjaxAnswer.type.connectionError) {
 				asl.notify(asl.notifications.application,asl.priority.normal,'Error:','No se pudo conectar con el servidor.',['OK'],[insertOrder]);
