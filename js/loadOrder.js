@@ -34,7 +34,14 @@ asl.options([
 	{
 		title: 'Salir',
 		callback: function(){
-			asl.notify(asl.notifications.application,asl.priority.normal,'¡Atención!', '¿Deseas guardar la orden?',['Si','No'],[exitAndSaveOrder,exitAndDeleteOrder]);
+			//asl.notify(asl.notifications.application,asl.priority.normal,'¡Atención!', '¿Deseas guardar la orden?',['Si','No'],[exitAndSaveOrder,exitAndDeleteOrder]);
+			confirm('¿Deseas guardar la orden?',function(confirmed){
+                if(confirmed){
+                    exitAndSaveOrder();
+                }else{
+                	exitAndDeleteOrder();
+                }
+            });
 		}
 	}
 ]);
@@ -78,7 +85,8 @@ function verifyScanQuantity(changedQuantity){
 	}else{
 		if(changedQuantity>currentProductRequestQuantity){
 			scanQuantity.value = currentProductRequestQuantity;
-			asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','Excede lo solicitado.',['OK'],[null]);
+			//asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','Excede lo solicitado.',['OK'],[null]);
+			alert('Excede lo solicitado.');
 		}
 	}
 }
@@ -129,7 +137,8 @@ function requestOrder(movID){
 
 						dvOffice.innerHTML = order.office;
 
-						asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','Orden cargada.',['OK'],[null]);
+						//asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','Orden cargada.',['OK'],[null]);
+						alert('Orden cargada.');
 						orderMovId = movID;
 						wlan.disableAdapter();
 						wifiEnabled = false;
@@ -137,19 +146,39 @@ function requestOrder(movID){
 						showLoadingScreen(false);
 					} else {
 						showLoadingScreen(true);
-						asl.notify(asl.notifications.application,asl.priority.normal,'No se pudo cargar la orden:','La orden debe tener el estatus \'PENDIENTE\'.',['OK'],[insertOrder]);
+						//asl.notify(asl.notifications.application,asl.priority.normal,'No se pudo cargar la orden:','La orden debe tener el estatus \'PENDIENTE\'.',['OK'],[insertOrder]);
+						confirm('No se pudo cargar la orden: La orden de traspaso debe tener el estatus \'PENDIENTE\'.',function(confirmed){
+			                if(confirmed){
+			                    insertOrder();
+			                }
+			            });
 					}
 				}
 				else{
 					showLoadingScreen(true);
-					asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','No existe una orden disponible con ese código.',['OK'],[insertOrder]);
+					/*asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','No existe una orden disponible con ese código.',['OK'],[insertOrder]);*/
+					confirm('No existe una orden disponible con ese código.',function(confirmed){
+		                if(confirmed){
+		                    insertOrder();
+		                }
+		            });
 				}
 			} else if (obj.ajaxAnswer == AjaxAnswer.type.connectionError) {
-				asl.notify(asl.notifications.application,asl.priority.normal,'Error:','No se pudo conectar con el servidor.',['OK'],[insertOrder]);
+				//asl.notify(asl.notifications.application,asl.priority.normal,'Error:','No se pudo conectar con el servidor.',['OK'],[insertOrder]);
+				confirm('Error: No se pudo conectar con el servidor.',function(confirmed){
+	                if(confirmed){
+	                    insertOrder();
+	                }
+	            });
 				//insertOrder();
 			} else {
 				if (obj.data) {
-					asl.notify(asl.notifications.application,asl.priority.normal,'Error en el servidor:','('+obj.data.status+') '+obj.data.statusText,['OK'],[insertOrder]);
+					//asl.notify(asl.notifications.application,asl.priority.normal,'Error en el servidor:','('+obj.data.status+') '+obj.data.statusText,['OK'],[insertOrder]);
+					confirm('Error en el servidor: ('+obj.data.status+') '+obj.data.statusText,function(confirmed){
+		                if(confirmed){
+		                    insertOrder();
+		                }
+		            });
 				} else {
 					insertOrder();
 				}
@@ -210,7 +239,8 @@ function decodeEvent(jsonObject)
 		scanQuantity.onchange();
 		//asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','Codigo ' + code,['OK'],[null]);
 	}else{
-		asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','El producto escaneado no coincide con el producto solicitado.',['OK'],[null]);
+		//asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','El producto escaneado no coincide con el producto solicitado.',['OK'],[null]);
+		alert('El producto escaneado no coincide con el producto solicitado.');
 	}
 }
 
@@ -228,7 +258,12 @@ function arraySearch(array, obj){
 function verifyProductsQuantity(){
 	var requestQuantity = order.products[showedProductNum].requestQuantity;
 	if(scanQuantity.value < requestQuantity){
-		asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','Faltaron productos.',['OK'],[showNextProduct]);
+		//asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','Faltaron productos.',['OK'],[showNextProduct]);
+		confirm('Faltaron productos.',function(confirmed){
+            if(confirmed){
+                showNextProduct();
+            }
+        });
 	}else{
 		showNextProduct();
 	}
@@ -240,7 +275,12 @@ function showNextProduct(){
 		showProductInfo(showedProductNum + 1);
 		saveOrderToStorage();
 	} else {
-		asl.notify(asl.notifications.application,asl.priority.normal,'Fin de la lista:','¿Desea Terminar la orden?',['Si','No'],[terminateOrder,null]);
+		//asl.notify(asl.notifications.application,asl.priority.normal,'Fin de la lista:','¿Desea Terminar la orden?',['Si','No'],[terminateOrder,null]);
+		confirm('¿Desea Terminar la orden?',function(confirmed){
+            if(confirmed){
+                terminateOrder();
+            }
+        });
 	}
 }
 
@@ -280,16 +320,24 @@ function requestSaveScanQuantity(){
 			if(obj.ajaxAnswer == AjaxAnswer.type.success){
 				if(obj.data){
 					clearOrder();
-					asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','Orden guardada.',['OK'],[insertOrder]);
+					//asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','Orden guardada.',['OK'],[insertOrder]);
+					confirm('Orden guardada.',function(confirmed){
+			            if(confirmed){
+			                insertOrder();
+			            }
+			        });
 				}
 				else{
-					asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','El ID de la orden no es correcto',['OK'],[null]);
+					//asl.notify(asl.notifications.application,asl.priority.normal,'Mensaje:','El ID de la orden no es correcto',['OK'],[null]);
+					alert('El ID de la orden no es correcto');
 				}
 			} else if (obj.ajaxAnswer == AjaxAnswer.type.connectionError) {
-				asl.notify(asl.notifications.application,asl.priority.normal,'Error:','No se pudo conectar con el servidor.',['OK'],[null]);
+				//asl.notify(asl.notifications.application,asl.priority.normal,'Error:','No se pudo conectar con el servidor.',['OK'],[null]);
+				alert('Error: No se pudo conectar con el servidor.');
 			} else {
 				if (obj.data) {
-					asl.notify(asl.notifications.application,asl.priority.normal,'Error en el servidor:','('+obj.data.status+') '+obj.data.statusText,['OK'],[null]);
+					//asl.notify(asl.notifications.application,asl.priority.normal,'Error en el servidor:','('+obj.data.status+') '+obj.data.statusText,['OK'],[null]);
+					alert('Error en el servidor: ('+obj.data.status+') '+obj.data.statusText);
 				}
 			}
 		}

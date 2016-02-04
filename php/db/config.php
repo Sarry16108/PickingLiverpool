@@ -5,7 +5,7 @@
     // ----------------SQL Server config------------------------
     $host = '192.168.96.3';
     $user = 'sa';
-    $password = 'Tho2010';
+    $password = 'Tho2015';
     $database = 'Bellisima';
 
     $db_url = 'sqlsrv:server='.$host.';Database='.$database;
