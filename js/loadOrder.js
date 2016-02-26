@@ -369,7 +369,7 @@ function createScanQuantityArray(){
 function terminateOrder(){
 	wlan.enableAdapter();
 	wifiEnabled = true;
-	setTimeout(requestSaveScanQuantity, 5000);
+	setTimeout(requestSaveScanQuantity, 5000)
 	//requestSaveScanQuantity();
 }
 
@@ -398,6 +398,7 @@ function saveOrderToStorage(){
 function removeOrderFromStorage(){
 	oStorage.remove('showedProductNum');
 	oStorage.remove('order');
+	asl.title('');
 }
 
 function exitAndSaveOrder(){

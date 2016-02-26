@@ -1,6 +1,8 @@
 <?php
     // ---------  Nombre del movimiento  -------------    
-    $mov = 'Orden Surtid Mayoreo';
+    //$mov = 'Orden Surtid Mayoreo';
+    $cfg_mov = 'Pedido Mayoreo';
+    $cfg_company = 'CCM';
 
     // ----------------SQL Server config------------------------
     $host = '192.168.96.3';
